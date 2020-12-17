@@ -12,6 +12,13 @@ app.use(bodyParser.urlencoded({ extended: false }))
 
 app.use(bodyParser.json())
 // your code goes here
+app.get('/topRankings', (req, res) => {
+    let limit = Number(isNaN(req.param('limit')) ? 20 : req.param('limit'));
+    let offset = Number(isNaN(req.param('offset')) ? 0 : req.param('offset'));
+    limit = limit + offset;
+    const requiredPosts = data.slice(offset, limit);
+    res.send(requiredPosts);
+});
 
 
 app.listen(port, () => console.log(`App listening on port ${port}!`))
